@@ -9,7 +9,7 @@ export default function LinkTreeView() {
   const queryClient = useQueryClient()
   const [devTreeLinks, setDevTreeLinks] = useState(social);
   const handleChangeInput = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement> | boolean,
+    e: React.ChangeEvent<HTMLInputElement> | boolean,
     name?: string) => {
 
     if (typeof e !== "boolean") {

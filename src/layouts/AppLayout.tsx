@@ -3,7 +3,7 @@ import { toast, Toaster } from "sonner";
 import NavigationTabs from "../components/NavigationTabs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUser, updateLinkOrder } from "../api/DevTreeAPI";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
@@ -31,7 +31,7 @@ export default function AppLayout({ onlyHeader }: Props) {
             queryClient.invalidateQueries({ queryKey: ['user'] })
         }
     })
-    const nav = useNavigate();
+    // const nav = useNavigate();
     const { data, isLoading, isError } = useQuery({
         queryFn: getUser,
         queryKey: ['user'],
@@ -55,13 +55,13 @@ export default function AppLayout({ onlyHeader }: Props) {
         return <Navigate to="/auth/login" replace />
     }
 
-    const handleLogout = () => {
-        const token = window.localStorage.getItem("AUTH_TOKEN")
-        if (token) {
-            window.localStorage.removeItem("AUTH_TOKEN")
-            nav("/", { replace: true })
-        }
-    }
+    // const handleLogout = () => {
+    //     const token = window.localStorage.getItem("AUTH_TOKEN")
+    //     if (token) {
+    //         window.localStorage.removeItem("AUTH_TOKEN")
+    //         nav("/", { replace: true })
+    //     }
+    // }
     
   
 

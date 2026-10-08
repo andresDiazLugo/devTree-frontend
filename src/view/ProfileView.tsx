@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import ErrorMessage from '../components/ErrorMessage'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import type { ProfileForm, ProfileUser,  } from '../types'
+import type { ProfileForm,  } from '../types'
 import { updateProfile } from '../api/DevTreeAPI'
 import { toast } from "sonner";
 
@@ -33,7 +33,7 @@ export default function ProfileView() {
         }
     })
     const { isPending } = updateProfileMutation;
-    const onSubmit = (data: ProfileUser) => { 
+    const onSubmit = (data: any) => { 
        const formData = new FormData();
        formData.append("handle", data.handle)
        formData.append("description", data.description ?? "")
