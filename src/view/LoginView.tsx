@@ -5,9 +5,11 @@ import type { LoginForm } from '../types'
 import api from '../config/axios'
 import { toast } from 'sonner'
 import { isAxiosError } from 'axios'
+import { useLocation } from 'react-router-dom'
 export default function LoginView() {
+  const location = useLocation()
   const initialValues = {
-    email: '',
+    email: location.state?.email || '',
     password: ''
   }
   const navigate = useNavigate()

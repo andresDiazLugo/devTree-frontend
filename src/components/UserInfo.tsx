@@ -8,9 +8,13 @@ export default function UserInfo({ userData }: UserInfoProps) {
     <div className="flex flex-col items-center justify-center gap-4">
       <h2 className="text-3xl font-bold text-white">handle: {userData?.user.name}</h2>
       <h2 className="text-2xl font-bold text-white">Nombre: {userData?.user.name}</h2>
+      {
+       userData?.user.avatar && (
       <div className="p-2 bg-white rounded-lg">
         <img src={userData?.user.avatar} alt={userData?.user.name} className="size-52 object-cover" />
       </div>
+       )
+      }
       <div className="px-2 max-w-xl">
         <p className="text-lg text-white font-bold">{userData?.user.description}</p>
       </div>
