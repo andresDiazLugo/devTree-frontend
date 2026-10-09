@@ -5,11 +5,13 @@ import type { RegisterForm } from "../types";
 import {isAxiosError} from "axios";
 import { toast } from "sonner";
 import  api  from "../config/axios";
+import { useState } from "react";
 
 
 export default function RegisterView() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     name: '',
     email: '',
@@ -24,16 +26,21 @@ export default function RegisterView() {
 
   const handleRegister = async (formData: RegisterForm) =>{
      try {
-        const response = await api.post('/auth/register', formData)
-        if(response.status === 201){
-            toast.success(response.data.message)
-            navigate('/auth/login', { state: { email: formData.email } })
-            reset()
+        if(!loading){
+            setLoading(true)
+            const response = await api.post('/auth/register', formData)
+            if(response.status === 201){
+                toast.success(response.data.message)
+                navigate('/auth/login', { state: { email: formData.email } })
+                reset()
+            }
         }
      } catch (error) {
         if (isAxiosError(error) && error.response) {
             toast.error(error.response?.data.message);
         }
+     } finally {
+        setLoading(false)
      }
   }
   return (
@@ -131,7 +138,7 @@ export default function RegisterView() {
             <input
                 type="submit"
                 className="bg-cyan-400 p-3 text-lg w-full uppercase text-slate-600 rounded-lg font-bold cursor-pointer"
-                value='Crear Cuenta'
+                value={loading ? "Cargando..." : "Crear cuenta"}
             />  
         </form>
         <nav className="mt-10">

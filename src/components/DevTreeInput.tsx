@@ -12,7 +12,7 @@ export default function DevTreeInput({ item, onChangeInput}: DevTreeProps) {
   return (
     <div className="bg-white shadow-sm p-5 flex items-center gap-3">
       <div
-        className="w-12 h-12 bg-cover"
+        className="w-12 h-12 bg-cover min-w-12 "
         style={{
           backgroundImage: `url('/social/icon_${item.name}.svg')`
         }}
@@ -22,7 +22,7 @@ export default function DevTreeInput({ item, onChangeInput}: DevTreeProps) {
       <input
         type="text"
         value={item.url}
-        className="flex-1 border border-gray-300 rounded-lg"
+        className="flex-1 border border-gray-300 rounded-lg w-full"
         onChange={(e)=>{onChangeInput(e)}}
         name={item.name}
 
@@ -31,7 +31,7 @@ export default function DevTreeInput({ item, onChangeInput}: DevTreeProps) {
         checked={item.enabled}
         onChange={(e)=>{onChangeInput(e, item.name)}}
         name={item.name}
-        className={`inline-flex h-6 w-11 items-center rounded-full transition ${item.enabled ? "bg-blue-600" : "bg-gray-200"
+        className={`inline-flex h-6 w-11 items-center rounded-full transition min-w-12 ${item.enabled ? "bg-blue-600" : "bg-gray-200"
           }`}
       >
         <span

@@ -6,7 +6,9 @@ import api from '../config/axios'
 import { toast } from 'sonner'
 import { isAxiosError } from 'axios'
 import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 export default function LoginView() {
+  const [ loading, setLoading] = useState(false);
   const location = useLocation()
   const initialValues = {
     email: location.state?.email || '',
@@ -17,17 +19,23 @@ export default function LoginView() {
 
   const handleLogin = async(formData: LoginForm) => {
     try {
-      const { data } = await api.post('/auth/login', formData)
-      localStorage.setItem('AUTH_TOKEN', data.token)
-      toast.success(data.message)
+      if(!loading){
+          setLoading(true);
+          const { data } = await api.post('/auth/login', formData)
+          localStorage.setItem('AUTH_TOKEN', data.token)
+          toast.success(data.message)
+    
+          reset()
+          navigate('/admin')
 
-      reset()
-      navigate('/admin')
+      }
     } catch (error) {
       console.error('Error logging in:', error)
       if (isAxiosError(error) && error.response) {
         toast.error(error.response?.data.message)
       }
+    } finally {
+        setLoading(false);
     }
   }
   return (
@@ -76,7 +84,7 @@ export default function LoginView() {
             <input
                 type="submit"
                 className="bg-cyan-400 p-3 text-lg w-full uppercase text-slate-600 rounded-lg font-bold cursor-pointer"
-                value='Iniciar Sesión'
+                value={loading ? "Cargando..." : 'Iniciar sesión'}
             />
         </form>
         <nav className="mt-10">
