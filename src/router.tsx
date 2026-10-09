@@ -34,7 +34,7 @@ export default function Router() {
                     <Route path="profile" element={<ProfileView/>}/>
                 </Route>
                 {/* </Route> */}
-                <Route path="/:handle" element={<AppLayout onlyHeader={true}/>}>
+                <Route path="/:handle">
                     <Route element={<HandleView/>} index={true}/>                
                 </Route>
                 <Route path="/404" element={<AppLayout onlyHeader={true}/>}>
